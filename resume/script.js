@@ -157,8 +157,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Send using EmailJS
             emailjs.send("service_op9zsh5", "template_074ie32", {
-                from_name: name,
-                from_email: email,
+                name: name,
+                email: email,
                 message: message,
                 to_email: 'ra920453@gmail.com'
             }).then(() => {
