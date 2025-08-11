@@ -48,7 +48,7 @@
   
   /* Apply base styles */
   html {
-    font-size: clamp(15px, 2vw, 18px);
+    font-size: clamp(14px, 2vw, 16px);
     scroll-behavior: smooth;
   }
   
@@ -253,8 +253,8 @@
     overflow: hidden;
   }
   
-  .hero-text h1 {
-    font-size: clamp(2.8rem, 6vw, 4.5rem);
+  .hero-text h2 {
+    font-size: clamp(2rem, 5vw, 4rem);
     font-weight: 700;
     margin-bottom: 1rem;
     line-height: 1.1;
@@ -262,7 +262,7 @@
     overflow-wrap: break-word;
   }
   
-  .hero-text h1 .highlight {
+  .hero-text h2 .highlight {
     font-size: 1.2em;
     background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     -webkit-background-clip: text;
@@ -349,7 +349,7 @@
   .code-preview pre {
     margin: 0;
     font-family: 'Courier New', monospace;
-    font-size: clamp(0.8rem, 2vw, 1rem);
+    font-size: clamp(0.8rem, 1.2vw, 1.2rem);
     line-height: 1.5;
     overflow-x: auto;
     white-space: pre-wrap;
