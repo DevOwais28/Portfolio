@@ -153,50 +153,5 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // ✅ Contact Form using EmailJS
-    const contactForm = document.getElementById('contact-form');
-    if (contactForm) {
-        contactForm.addEventListener('submit', function (e) {
-            e.preventDefault();
-
-            const formData = new FormData(contactForm);
-            const name = formData.get('name');
-            const email = formData.get('email');
-            const message = formData.get('message');
-
-            if (!name || !email || !message) {
-                alert('Please fill in all fields.');
-                return;
-            }
-
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-                alert('Please enter a valid email address.');
-        return;
-    }
-
-            const submitButton = contactForm.querySelector('#submit-btn');
-            const originalText = submitButton.innerHTML;
-    submitButton.disabled = true;
-            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-
-            // Send using EmailJS
-            emailjs.send("service_op9zsh5", "template_074ie32", {
-                name: name,
-                email: email,
-                message: message,
-                to_email: 'ra920453@gmail.com'
-            }).then(() => {
-                alert("Message sent successfully!");
-                contactForm.reset();
-                submitButton.disabled = false;
-                submitButton.innerHTML = originalText;
-            }).catch((error) => {
-                console.error("EmailJS error:", error);
-                alert("Something went wrong. Please try again later.");
-                submitButton.disabled = false;
-                submitButton.innerHTML = originalText;
-            });
-        });
-    }
+    // Contact form will submit via FormSubmit action defined in HTML, no extra JS needed
 });
