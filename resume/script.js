@@ -113,11 +113,30 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     skillBars.forEach(bar => skillObserver.observe(bar));
 
-    // Project cards
-    document.querySelectorAll('.project-card').forEach(card => {
-        card.addEventListener('mouseenter', () => card.style.transform = 'translateY(-10px)');
-        card.addEventListener('mouseleave', () => card.style.transform = 'translateY(0)');
-    });
+    // Projects navigation buttons (horizontal carousel)
+    const projectsGrid = document.querySelector('.projects-grid');
+    const prevBtn = document.getElementById('projects-prev');
+    const nextBtn = document.getElementById('projects-next');
+
+    if (projectsGrid && prevBtn && nextBtn) {
+        const getScrollAmount = () => {
+            const firstCard = projectsGrid.querySelector('.project-card');
+            if (!firstCard) return 0;
+            const cardStyle = window.getComputedStyle(projectsGrid);
+            const gap = parseFloat(cardStyle.columnGap || cardStyle.gap || '32');
+            return firstCard.offsetWidth + gap;
+        };
+
+        prevBtn.addEventListener('click', () => {
+            const amount = getScrollAmount();
+            projectsGrid.scrollBy({ left: -amount, behavior: 'smooth' });
+        });
+
+        nextBtn.addEventListener('click', () => {
+            const amount = getScrollAmount();
+            projectsGrid.scrollBy({ left: amount, behavior: 'smooth' });
+        });
+    }
 
     // Handle image loading errors
     document.querySelectorAll('.project-image').forEach(img => {
