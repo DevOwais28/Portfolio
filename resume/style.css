@@ -1061,28 +1061,28 @@
       margin-bottom: 2rem;
     }
 
-    /* On mobile: no horizontal carousel, just stacked full-width cards */
+    /* On mobile: keep horizontal carousel with one main card visible */
     .projects-carousel {
-      flex-direction: column;
-      align-items: stretch;
-      gap: 1.5rem;
+      flex-direction: row;
+      align-items: center;
+      gap: 0.75rem;
     }
 
     .projects-viewport {
-      overflow: visible;
+      overflow: hidden;
     }
 
     .projects-grid {
       display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-      overflow-x: visible;
-      scroll-snap-type: none;
+      flex-direction: row;
+      gap: 1rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
     }
 
     .project-card {
-      min-width: 100%;
-      max-width: 100%;
+      min-width: 85vw;
+      max-width: 85vw;
       min-height: auto;
       max-height: none;
       transform: none;
@@ -1104,9 +1104,9 @@
     .project-tags {
       margin-bottom: 1.25rem;
     }
-
+    
     .projects-nav {
-      display: none;
+      display: inline-flex;
     }
   }
   
