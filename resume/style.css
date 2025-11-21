@@ -616,6 +616,13 @@
     flex-shrink: 0;
     position: relative;
   }
+
+  /* 3D projects carousel rotation */
+  @keyframes projects-rotate {
+    to {
+      transform: rotateX(70deg) rotateZ(360deg);
+    }
+  }
   
   .project-image {
     width: 100%;
