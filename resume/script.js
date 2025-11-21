@@ -119,22 +119,27 @@ document.addEventListener('DOMContentLoaded', () => {
     const nextBtn = document.getElementById('projects-next');
 
     if (projectsGrid && prevBtn && nextBtn) {
-        const getScrollAmount = () => {
-            const firstCard = projectsGrid.querySelector('.project-card');
-            if (!firstCard) return 0;
-            const cardStyle = window.getComputedStyle(projectsGrid);
-            const gap = parseFloat(cardStyle.columnGap || cardStyle.gap || '32');
-            return firstCard.offsetWidth + gap;
+        const cards = Array.from(projectsGrid.querySelectorAll('.project-card'));
+        let currentIndex = 0;
+
+        const scrollToCard = (index) => {
+            if (!cards.length) return;
+            const clampedIndex = Math.max(0, Math.min(cards.length - 1, index));
+            const card = cards[clampedIndex];
+            const offset = card.offsetLeft - projectsGrid.offsetLeft;
+            projectsGrid.scrollTo({ left: offset, behavior: 'smooth' });
+            currentIndex = clampedIndex;
         };
 
+        // Ensure we start at the first card
+        scrollToCard(0);
+
         prevBtn.addEventListener('click', () => {
-            const amount = getScrollAmount();
-            projectsGrid.scrollBy({ left: -amount, behavior: 'smooth' });
+            scrollToCard(currentIndex - 1);
         });
 
         nextBtn.addEventListener('click', () => {
-            const amount = getScrollAmount();
-            projectsGrid.scrollBy({ left: amount, behavior: 'smooth' });
+            scrollToCard(currentIndex + 1);
         });
     }
 
