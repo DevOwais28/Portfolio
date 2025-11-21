@@ -484,7 +484,9 @@
   }
 
   .projects-viewport {
-    flex: 1;
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: 420px;
     overflow: hidden;
   }
 
@@ -523,8 +525,8 @@
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    min-width: min(360px, 85vw);
-    max-width: 400px;
+    min-width: 100%;
+    max-width: 100%;
     border: 1px solid rgba(148, 163, 184, 0.45);
     position: relative;
     scroll-snap-align: center;
@@ -1082,12 +1084,13 @@
     }
 
     .project-card {
-      min-width: 100vw;
-      max-width: 100vw;
+      min-width: 100%;
+      max-width: 100%;
       min-height: auto;
       max-height: none;
       transform: none;
       margin: 0 auto;
+      scroll-snap-align: center;
     }
 
     .project-content {
