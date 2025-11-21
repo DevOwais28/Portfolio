@@ -153,5 +153,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Contact form will submit via FormSubmit action defined in HTML, no extra JS needed
+    // Ensure FormSubmit redirects to the correct thanks.html on current origin
+    const contactForm = document.getElementById('contact-form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', () => {
+            const nextField = contactForm.querySelector('input[name="_next"]');
+            if (nextField) {
+                nextField.value = `${window.location.origin}/thanks.html`;
+            }
+        });
+    }
 });
