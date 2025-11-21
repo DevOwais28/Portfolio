@@ -476,31 +476,51 @@
   
   /* Projects Section */
   .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-    gap: 3rem;
+    display: flex;
+    gap: 2rem;
     margin-top: 3rem;
-    overflow: hidden;
+    padding-bottom: 1rem;
+    overflow-x: auto;
+    overflow-y: visible;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
   }
-  
+
+  .projects-grid::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  .projects-grid::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .projects-grid::-webkit-scrollbar-thumb {
+    background: rgba(148, 163, 184, 0.7);
+    border-radius: 999px;
+  }
+
   .project-card {
     background: linear-gradient(135deg, var(--card-bg) 0%, rgba(255, 255, 255, 0.05) 100%);
-    border-radius: 1.5rem;
+    border-radius: 1.75rem;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    height: auto;
-    min-height: auto;
-    max-height: none;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    min-width: min(380px, 85vw);
+    max-width: 420px;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+                box-shadow 0.4s ease,
+                border-color 0.4s ease;
     border: 1px solid rgba(255, 255, 255, 0.1);
     position: relative;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(12px);
+    scroll-snap-align: center;
+    animation: project-slide-up 0.7s ease forwards;
+    transform-origin: center bottom;
   }
-  
+
   .project-card:hover {
-    transform: translateY(-10px);
+    transform: translateY(-10px) scale(1.02);
     box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
     border-color: var(--primary-color);
   }
@@ -607,6 +627,17 @@
   .project-links .btn:hover {
     transform: translateY(-3px);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  }
+
+  @keyframes project-slide-up {
+    from {
+      opacity: 0;
+      transform: translateY(30px) scale(0.98);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
   }
   
   /* Contact Section */
