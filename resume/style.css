@@ -1060,17 +1060,34 @@
     .section-header {
       margin-bottom: 2rem;
     }
-    
-    .projects-grid {
-      grid-template-columns: 1fr;
-      gap: 2rem;
+
+    /* On mobile: no horizontal carousel, just stacked full-width cards */
+    .projects-carousel {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 1.5rem;
     }
-    
+
+    .projects-viewport {
+      overflow: visible;
+    }
+
+    .projects-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      overflow-x: visible;
+      scroll-snap-type: none;
+    }
+
     .project-card {
+      min-width: 100%;
+      max-width: 100%;
       min-height: auto;
       max-height: none;
+      transform: none;
     }
-    
+
     .project-content {
       padding: 1.5rem;
     }
@@ -1086,6 +1103,10 @@
     
     .project-tags {
       margin-bottom: 1.25rem;
+    }
+
+    .projects-nav {
+      display: none;
     }
   }
   
