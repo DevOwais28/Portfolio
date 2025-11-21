@@ -60,32 +60,34 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Typing effect
+    // Typing effect (only if element exists)
     const typingText = document.querySelector('.typing-text');
-    const typingWords = ['FrontEnd Developer', 'Data Scientist', 'DataBase Manager',"Ai Engineer"];
-    let wordIndex = 0, charIndex = 0, isDeleting = false, typingDelay = 100;
+    if (typingText) {
+        const typingWords = ['FrontEnd Developer', 'Data Scientist', 'DataBase Manager', 'Ai Engineer'];
+        let wordIndex = 0, charIndex = 0, isDeleting = false, typingDelay = 100;
 
-    function typeEffect() {
-        const currentWord = typingWords[wordIndex];
-        const currentChar = currentWord.substring(0, charIndex);
-        typingText.textContent = currentChar;
+        function typeEffect() {
+            const currentWord = typingWords[wordIndex];
+            const currentChar = currentWord.substring(0, charIndex);
+            typingText.textContent = currentChar;
 
-        if (!isDeleting && charIndex < currentWord.length) {
-            charIndex++;
-            typingDelay = 100;
-        } else if (isDeleting && charIndex > 0) {
-            charIndex--;
-            typingDelay = 50;
-        } else {
-            isDeleting = !isDeleting;
-            if (!isDeleting) wordIndex = (wordIndex + 1) % typingWords.length;
-            typingDelay = 1000;
+            if (!isDeleting && charIndex < currentWord.length) {
+                charIndex++;
+                typingDelay = 100;
+            } else if (isDeleting && charIndex > 0) {
+                charIndex--;
+                typingDelay = 50;
+            } else {
+                isDeleting = !isDeleting;
+                if (!isDeleting) wordIndex = (wordIndex + 1) % typingWords.length;
+                typingDelay = 1000;
+            }
+
+            setTimeout(typeEffect, typingDelay);
         }
 
-        setTimeout(typeEffect, typingDelay);
+        typeEffect();
     }
-
-    typeEffect();
 
     // Smooth scroll
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -126,8 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!cards.length) return;
             const clampedIndex = Math.max(0, Math.min(cards.length - 1, index));
             const card = cards[clampedIndex];
-            const offset = card.offsetLeft - projectsGrid.offsetLeft;
-            projectsGrid.scrollTo({ left: offset, behavior: 'smooth' });
+            card.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
             currentIndex = clampedIndex;
         };
 
