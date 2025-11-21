@@ -475,70 +475,134 @@
   }
   
   /* Projects Section */
-  .projects-grid {
+ .projects-grid {
     display: flex;
     gap: 2rem;
     margin-top: 3rem;
     padding-bottom: 1rem;
-    overflow-x: auto;
-    overflow-y: visible;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
   }
 
-  .projects-grid::-webkit-scrollbar {
-    height: 6px;
+  /* 3D carousel wrapper overrides */
+  .projects-3d-wrapper.projects-grid {
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 0;
   }
 
-  .projects-grid::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  .projects-grid::-webkit-scrollbar-thumb {
-    background: rgba(148, 163, 184, 0.5);
-    border-radius: 999px;
-  }
-
-  .project-card {
-    background: linear-gradient(135deg, var(--card-bg) 0%, rgba(255, 255, 255, 0.05) 100%);
-    border-radius: 1.75rem;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    min-width: min(380px, 85vw);
-    max-width: 420px;
-    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
-                box-shadow 0.4s ease,
-                border-color 0.4s ease;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+  .projects-3d {
     position: relative;
-    backdrop-filter: blur(12px);
-    scroll-snap-align: center;
-    animation: project-slide-up 0.7s ease forwards;
-    transform-origin: center bottom;
+    width: min(420px, 100%);
+    height: 420px;
+    display: grid;
+    place-items: center;
+    perspective: 1000px;
+    margin-inline: auto;
   }
 
-  .project-card:hover {
-    transform: translateY(-12px) scale(1.03) rotate3d(1, 0.1, 0, 1.5deg);
-    box-shadow: 0 25px 60px rgba(15, 23, 42, 0.45);
+  .projects-3d .carousel {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+    transform-style: preserve-3d;
+    transform: rotateX(70deg);
+    animation: projects-rotate 18s linear infinite;
+    transition: transform 0.8s ease;
+    background-image: radial-gradient(circle at 50% 50%, rgba(15,23,42,0.9) 28%, transparent 45%);
+  }
+
+  .projects-3d .carousel:hover {
+    animation-play-state: paused;
+  }
+
+  .projects-3d .project-card {
+    position: absolute;
+    width: 220px;
+    height: 260px;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    background-color: rgba(15, 23, 42, 0.98);
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(148, 163, 184, 0.35);
+    -webkit-box-reflect: below 3px linear-gradient(transparent 72%, rgba(255,255,255,0.16));
+    transform-origin: center center;
+    transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+  }
+
+  .projects-3d .project-card:hover {
+    transform: translateZ(16px) scale(1.03);
+    box-shadow: 0 0 50px rgba(56, 189, 248, 0.6);
     border-color: var(--primary-color);
   }
 
-  .project-card::before {
-    content: "";
-    position: absolute;
-    inset: -1px;
-    border-radius: inherit;
-    background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.25), transparent 55%),
-                radial-gradient(circle at bottom right, rgba(129, 140, 248, 0.25), transparent 55%);
-    opacity: 0;
-    transition: opacity 0.4s ease;
-    pointer-events: none;
+  /* Position each project around the ring (6 items) */
+  .projects-3d .project-card:nth-child(1) {
+    transform: rotateZ(0deg) rotateX(90deg) translateY(120px) translateZ(260px) rotateZ(180deg);
   }
 
-  .project-card:hover::before {
-    opacity: 1;
+  .projects-3d .project-card:nth-child(2) {
+    transform: rotateZ(60deg) rotateX(90deg) translateY(120px) translateZ(260px) rotateZ(180deg);
+  }
+
+  .projects-3d .project-card:nth-child(3) {
+    transform: rotateZ(120deg) rotateX(90deg) translateY(120px) translateZ(260px) rotateZ(180deg);
+  }
+
+  .projects-3d .project-card:nth-child(4) {
+    transform: rotateZ(180deg) rotateX(90deg) translateY(120px) translateZ(260px) rotateZ(180deg);
+  }
+
+  .projects-3d .project-card:nth-child(5) {
+    transform: rotateZ(240deg) rotateX(90deg) translateY(120px) translateZ(260px) rotateZ(180deg);
+  }
+
+  .projects-3d .project-card:nth-child(6) {
+    transform: rotateZ(300deg) rotateX(90deg) translateY(120px) translateZ(260px) rotateZ(180deg);
+  }
+
+  .projects-3d .project-image-container {
+    width: 100%;
+    height: 120px;
+    aspect-ratio: auto;
+  }
+
+  .projects-3d .project-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.8);
+  }
+
+  .projects-3d .project-content {
+    padding: 0.9rem 1rem 0.6rem;
+    background: transparent;
+  }
+
+  .projects-3d .project-title {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .projects-3d .project-description {
+    font-size: 0.8rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .projects-3d .project-tags {
+    margin-bottom: 0.4rem;
+  }
+
+  .projects-3d .project-links {
+    display: flex;
+    gap: 0.4rem;
+  }
+
+  .projects-3d .project-links .btn {
+    padding: 0.4rem 0.5rem;
+    font-size: 0.7rem;
   }
 
   .project-image-container {
